@@ -11,3 +11,6 @@ Example:-  Backing up data to the server etc
 **workManager**--  it enqueue and manage the work request
 
 **workInfo**-- It contain the information of work like **workId,work status**
+
+
+In this example we create **OneTimeWorkrequest** work with sending and receiving data from worker class
