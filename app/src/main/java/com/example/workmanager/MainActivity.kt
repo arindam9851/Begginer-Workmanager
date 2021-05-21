@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.work.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,16 +27,25 @@ class MainActivity : AppCompatActivity() {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-        val request = OneTimeWorkRequest.Builder(MyWorker::class.java)
+        // One time work request
+        val oneTimeRequest = OneTimeWorkRequest.Builder(MyWorker::class.java)
                 .setInputData(data)
                 .setConstraints(constrains)
                 .build()
 
-        button.setOnClickListener(View.OnClickListener {
-            WorkManager.getInstance().enqueue(request)
-        })
+        // Periodic work request
+       /* val periodicWorkRequest=PeriodicWorkRequest.Builder(MyWorker::class.java,20,TimeUnit.MINUTES)
+                .build()*/
 
-        WorkManager.getInstance().getWorkInfoByIdLiveData(request.id)
+
+        button.setOnClickListener(View.OnClickListener {
+            WorkManager.getInstance().enqueue(oneTimeRequest)
+        })
+        /*button.setOnClickListener(View.OnClickListener {
+            WorkManager.getInstance().enqueue(periodicWorkRequest)
+        })*/
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(oneTimeRequest.id)
             .observe(this, Observer {
                 if(it!=null){
                     if(it.state.isFinished){
