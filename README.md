@@ -14,3 +14,6 @@ Example:-  Backing up data to the server etc
 
 
 In this example we create **OneTimeWorkrequest** work with sending and receiving data and **Constraints** 
+
+
+**PeriodicWorkRequest**  -- MIN_PERIODIC_INTERVAL_MILLIS 900000 (15 mints)
