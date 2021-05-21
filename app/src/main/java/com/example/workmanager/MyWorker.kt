@@ -6,14 +6,28 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
 
 class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
     override fun doWork(): Result {
-        displayNotification("I am your work","Work is finished")
-        return Result.success()
+        // getting data from mainActivity
+        val data= inputData
+        var desc =data.getString("WORK_INPUT_KEY")
+        displayNotification("I am your work",desc!!)
+        return Result.success(createOutputData())
+    }
+
+    private fun createOutputData(): Data {
+        // Sending data to mainActivity
+        val outputData= Data.Builder()
+                .putString("WORK_OUTPUT_KEY","Hey i am sending output data from Worker class")
+                .build()
+
+        return outputData
+
     }
 
 
