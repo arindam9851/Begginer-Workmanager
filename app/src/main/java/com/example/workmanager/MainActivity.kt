@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.work.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,8 +20,15 @@ class MainActivity : AppCompatActivity() {
                 .putString("WORK_INPUT_KEY","Hey i am sending data")
                 .build()
 
+        // When device is on charging and connected to network then work is execute
+        val constrains=Constraints.Builder()
+                .setRequiresCharging(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
         val request = OneTimeWorkRequest.Builder(MyWorker::class.java)
                 .setInputData(data)
+                .setConstraints(constrains)
                 .build()
 
         button.setOnClickListener(View.OnClickListener {
