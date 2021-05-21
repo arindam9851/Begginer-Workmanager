@@ -1,4 +1,7 @@
 # Begginer-Workmanager
+
+WorkManager is an API that makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. 
+
 Work Manager is a componet of android JETPACK and it is bassically for scheduking background task. Task may run immediately or an appropriate time.
 Example:-  Backing up data to the server etc
 
